@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     python2.7 python-pil python-matplotlib \
     python-numpy python-tables python-scipy \
     openjdk-7-jre-headless ice-services python-zeroc-ice \
-    mencoder \
+    mencoder
 
 ADD . /omero_installation
 RUN /omero_installation/setup-env.sh
