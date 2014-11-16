@@ -12,7 +12,6 @@ ADD . /omero_installation
 RUN /omero_installation/setup-env.sh
 
 USER omero
-COPY OMERO.server-5.0.6-ice35-b53.zip /home/omero/OMERO.server-5.0.6-ice35-b53.zip
 RUN /omero_installation/install-omero.sh
 
 USER root
