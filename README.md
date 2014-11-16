@@ -24,5 +24,6 @@ Note that `data`, `/home/omero/OMERO.server/var`, `/var/log/postgresql`, `/var/l
 
 ## TODO
 
+- find a trick to bind /data folder to an host folder. `-v /host/data:/data` does not work.
 - make webserver work
 - make Postgresql installation optional and use an already configured database instance
