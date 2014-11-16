@@ -1,12 +1,13 @@
 FROM ubuntu:14.04
 MAINTAINER Hadrien Mary <hadrien.mary@gmail.com>
 
-RUN apt-get update
-RUN apt-get install -y unzip wget supervisor
-RUN apt-get install -y postgresql
-RUN apt-get install -y python2.7 python-pil python-matplotlib python-numpy python-tables python-scipy
-RUN apt-get install -y openjdk-7-jre-headless ice-services python-zeroc-ice
-RUN apt-get install -y mencoder
+RUN apt-get update && apt-get install -y \
+    unzip wget supervisor \
+    postgresql \
+    python2.7 python-pil python-matplotlib \
+    python-numpy python-tables python-scipy \
+    openjdk-7-jre-headless ice-services python-zeroc-ice \
+    mencoder \
 
 ADD . /omero_installation
 RUN /omero_installation/setup-env.sh
