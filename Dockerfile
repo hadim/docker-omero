@@ -19,8 +19,8 @@ USER root
 RUN /omero_installation/setup-database.sh
 RUN /omero_installation/install-nginx.sh
 
-VOLUME ["/data", "/home/omero/OMERO.server/var", \
-        "/var/log/postgresql", "/var/lib/postgresql"]
+#VOLUME ["/data", "/home/omero/OMERO.server/var", \
+#        "/var/log/postgresql", "/var/lib/postgresql"]
 
 COPY omero_supervisor.conf /etc/supervisor/conf.d/omero_supervisor.conf
 
