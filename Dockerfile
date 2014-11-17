@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 ENV OMERO_DB_USER omero
 ENV OMERO_DB_PASS omero_password
 ENV OMERO_DB_NAME omero
-ENV OMERO_ROOT_PASS omero_root_password
+ENV OMERO_ROOT_PASS password
 ENV OMERO_DATA_DIR /data
 ENV OMERO_WEB_PORT 80
 ENV OMERO_SERVER http://downloads.openmicroscopy.org/omero/5.0.6/artifacts/OMERO.server-5.0.6-ice35-b53.zip

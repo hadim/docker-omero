@@ -18,7 +18,7 @@ Run the container :
 docker run -p 4064:4064 -p 4063:4063 -p 8080:80 -t hadim/docker-omero
 ```
 
-You should be able to connect with OMEROinsight client or via webserver at http://localhost:8080. Default password for user `root` is `omero_root_password`.
+You should be able to connect with OMEROinsight client or via webserver at http://localhost:8080. Default password for user `root` is `password`.
 
 If you run the container without volume binding, all omero data will reside in the docker container. To avoid that, first create a `data` folder on host system and then bind it within the container :
 
