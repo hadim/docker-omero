@@ -53,7 +53,11 @@ RUN cp $OMERO_HOME/nginx.conf.tmp /etc/nginx/sites-available/omero-web
 RUN rm /etc/nginx/sites-enabled/default
 RUN ln -s /etc/nginx/sites-available/omero-web /etc/nginx/sites-enabled/
 
+# Install supervisor configuration
 COPY omero_supervisor.conf /etc/supervisor/conf.d/omero_supervisor.conf
+
+# Install database backup script
+COPY backup-omero-database.sh /etc/cron.daily/backup-omero-database.sh
 
 VOLUME ['/data']
 
