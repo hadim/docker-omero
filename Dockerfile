@@ -17,7 +17,8 @@ ENV OMERO_DB_NAME omero
 ENV OMERO_ROOT_PASS password
 ENV OMERO_DATA_DIR /data
 ENV OMERO_WEB_PORT 80
-ENV OMERO_SERVER http://downloads.openmicroscopy.org/omero/5.0.6/artifacts/OMERO.server-5.0.6-ice35-b53.zip
+ENV OMERO_VERSION 5.0.6
+ENV OMERO_SERVER http://downloads.openmicroscopy.org/omero/${OMERO_VERSION}/artifacts/OMERO.server-${OMERO_VERSION}-ice35-b53.zip
 ENV OMERO_DIR /home/omero
 ENV OMERO_HOME $OMERO_DIR/OMERO.server
 ENV OMERO_BIN $OMERO_HOME/bin/omero
