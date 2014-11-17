@@ -55,6 +55,8 @@ RUN ln -s /etc/nginx/sites-available/omero-web /etc/nginx/sites-enabled/
 
 COPY omero_supervisor.conf /etc/supervisor/conf.d/omero_supervisor.conf
 
+VOLUME ['/data']
+
 EXPOSE 4063 4064 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/omero_supervisor.conf"]
