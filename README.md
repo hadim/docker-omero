@@ -2,7 +2,7 @@
 
 Docker file to build omero server. Largely inspired form http://www.openmicroscopy.org/site/support/omero5/sysadmins/unix/server-linux-walkthrough.html.
 
-## Install
+## Install and use
 
 You can pull or build the docker image :
 
@@ -26,9 +26,15 @@ If you run the container without volume binding, all omero data will reside in t
 docker run -p 4064:4064 -p 4063:4063 -p 8080:80 --name omero -v ~/data:/data  -ti hadim/docker-omero
 ```
 
+Automatic backup of database is made every day via cron. Backups are stored to `/data/backups`. To launch a manual backup, use :
+
+```
+# omero is the name of the running container
+dòcker exec -ti omero /etc/cron.daily/backup-omero-database.sh
+```
+
 ## TODO
 
-- build efficient and smart backup and restore system
-- make Postgresql installation optional and use an already configured database instance
-- use a Postgresql container for database ?
+- add a system to restore backup database
+- add a system to use external database
 - find the best way to handle logs (read and write)
