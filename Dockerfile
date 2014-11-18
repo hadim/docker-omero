@@ -63,7 +63,8 @@ COPY backup-omero-database.sh /etc/cron.daily/backup-omero-database.sh
 # Copy omero startup script
 COPY start-omero-server.py /start-omero-server.py
 
-VOLUME ['/data']
+VOLUME [$OMERO_DATA_DIR]
+
 EXPOSE 4063 4064 80
 
 ENTRYPOINT ["/start-omero-server.py"]

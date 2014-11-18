@@ -7,6 +7,7 @@ OMERO_DB_NAME="omero"
 FNAME=$(date +"%Y_%m_%d_%H_%M_omero_db.tar.bz2")
 
 mkdir -p $BACKUP_DIR
+chown omero:omero $BACKUP_DIR
 
 # Remove backups older than 7 days
 find $BACKUP_DIR -type f -mtime +7 -exec rm {} \;

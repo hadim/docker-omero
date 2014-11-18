@@ -34,7 +34,7 @@ Automatic backup of database is made every day via cron. Backups are stored to `
 
 ```
 # omero is the name of the running container
-dòcker exec -ti omero /etc/cron.daily/backup-omero-database.sh
+docker exec -ti omero /etc/cron.daily/backup-omero-database.sh
 ```
 
 ## Restore OMERO.server

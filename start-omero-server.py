@@ -73,6 +73,9 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
+    # Set data folder owner to omero user
+    run("chown omero:omero /data")
+
     if args.bash:
         start_bash()
         sys.exit(0)
