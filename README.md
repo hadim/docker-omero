@@ -39,7 +39,7 @@ dòcker exec -ti omero /etc/cron.daily/backup-omero-database.sh
 
 ## Restore OMERO.server
 
-You can restore an OMERO.server binding and already populated data folder and restoring a backup database :
+You can restore an OMERO.server by binding an already populated data folder and restoring a backup database :
 
 ```
 docker run -p 4064:4064 -p 4063:4063 -p 8080:80 --name omero -v ~/omero_data:/data -t hadim/docker-omero --restore /data/backups/2014_11_18_09_35_omero_db.tar.bz2
