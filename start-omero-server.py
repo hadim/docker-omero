@@ -15,10 +15,11 @@ def run(cmd):
     proc = subprocess.Popen(cmd, shell=True)
     proc.wait()
 
-def start_omero_server():
+def start_omero_server(log_level="info"):
     try:
         proc = subprocess.Popen(["/usr/bin/supervisord", "-c",
-                                 "/etc/supervisor/conf.d/omero_supervisor.conf"])
+                                 "/etc/supervisor/conf.d/omero_supervisor.conf",
+                                 '-e', log_level])
         proc.communicate()
 
     except KeyboardInterrupt:
@@ -70,6 +71,8 @@ if __name__ == '__main__':
                         help="Restore the last backup found in /data/backups")
     parser.add_argument('--bash', action='store_true',
                         help="""Start bash shell.""")
+    parser.add_argument('--debug', action='store_true',
+                        help="""Start supervisor process in debug mode.""")
 
     args = parser.parse_args()
 
@@ -88,5 +91,9 @@ if __name__ == '__main__':
         last_backup = os.path.join("/data/backups", backups[-1])
         restore_database(last_backup)
 
-    start_omero_server()
+    log_level = 'info'
+    if args.debug:
+        log_level = 'debug'
+
+    start_omero_server(log_level)
     sys.exit(0)

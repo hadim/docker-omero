@@ -53,6 +53,7 @@ RUN service postgresql start && PGPASSWORD="$OMERO_DB_PASS" psql -h localhost -U
 RUN cp $OMERO_HOME/nginx.conf.tmp /etc/nginx/sites-available/omero-web
 RUN rm /etc/nginx/sites-enabled/default
 RUN ln -s /etc/nginx/sites-available/omero-web /etc/nginx/sites-enabled/
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Copy supervisor configuration
 COPY omero_supervisor.conf /etc/supervisor/conf.d/omero_supervisor.conf
