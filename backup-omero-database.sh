@@ -6,6 +6,8 @@ OMERO_DB_PASS="omero_password"
 OMERO_DB_NAME="omero"
 FNAME=$(date +"%Y_%m_%d_%H_%M_omero_db.tar.bz2")
 
+mkdir -p $BACKUP_DIR
+
 # Remove backups older than 7 days
 find $BACKUP_DIR -type f -mtime +7 -exec rm {} \;
 
@@ -13,7 +15,8 @@ find $BACKUP_DIR -type f -mtime +7 -exec rm {} \;
 su postgres -c "pg_dump -Fc -f /tmp/omero_db.pg_dump $OMERO_DB_NAME"
 
 # Compress it
-tar -jcvf $BACKUP_DIR/$FNAME /tmp/omero_db.pg_dump
+cd /tmp
+tar -jcvf $BACKUP_DIR/$FNAME omero_db.pg_dump
 
 # Remove uncompressed db
 rm -fr /tmp/omero_db.pg_dump

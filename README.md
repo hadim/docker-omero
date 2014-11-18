@@ -23,7 +23,7 @@ You should be able to connect with OMEROinsight client or via webserver at http:
 If you run the container without volume binding, all omero data will reside in the docker container. To avoid that, first create a `data` folder on host system and then bind it within the container :
 
 ```
-docker run -p 4064:4064 -p 4063:4063 -p 8080:80 --name omero -v ~/data:/data  -ti hadim/docker-omero
+docker run -p 4064:4064 -p 4063:4063 -p 8080:80 --name omero -v ~/data:/data -t hadim/docker-omero
 ```
 
 Automatic backup of database is made every day via cron. Backups are stored to `/data/backups`. To launch a manual backup, use :
@@ -33,8 +33,18 @@ Automatic backup of database is made every day via cron. Backups are stored to `
 dòcker exec -ti omero /etc/cron.daily/backup-omero-database.sh
 ```
 
+You can also restore a backup (note that the path is relative to the container) :
+
+```
+docker run -p 4064:4064 -p 4063:4063 -p 8080:80 --name omero -v ~/data:/data -t hadim/docker-omero --restore /data/backups/2014_11_18_09_35_omero_db.tar.bz2
+```
+
+Or ask to restore the last found backup in `/data/backups`:
+
+```
+docker run -p 4064:4064 -p 4063:4063 -p 8080:80 --name omero -v ~/data:/data -t hadim/docker-omero --restore-last
+```
+
 ## TODO
 
-- add a system to restore backup database
 - add a system to use external database
-- find the best way to handle logs (read and write)

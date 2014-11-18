@@ -35,7 +35,7 @@ RUN wget -P $OMERO_DIR $OMERO_SERVER
 RUN unzip -q $OMERO_DIR/$(basename $OMERO_SERVER) -d $OMERO_DIR
 RUN ln -s $OMERO_DIR/$(basename "${OMERO_SERVER%.zip}") $OMERO_HOME
 
-# Setup Omero
+# Setup Omero.server
 RUN $OMERO_BIN config set omero.data.dir "$OMERO_DATA_DIR"
 RUN $OMERO_BIN config set omero.db.name "$OMERO_DB_NAME"
 RUN $OMERO_BIN config set omero.db.user "$OMERO_DB_USER"
@@ -49,19 +49,21 @@ RUN service postgresql start && su postgres -c "psql postgres -c \"CREATE USER $
 RUN service postgresql start && su postgres -c "createdb -O '$OMERO_DB_USER' '$OMERO_DB_NAME'" && service postgresql stop
 RUN service postgresql start && PGPASSWORD="$OMERO_DB_PASS" psql -h localhost -U "$OMERO_DB_USER" "$OMERO_DB_NAME" < $OMERO_HOME/db.sql && service postgresql stop
 
-# Install nginx
+# Install Omero.web with nginx
 RUN cp $OMERO_HOME/nginx.conf.tmp /etc/nginx/sites-available/omero-web
 RUN rm /etc/nginx/sites-enabled/default
 RUN ln -s /etc/nginx/sites-available/omero-web /etc/nginx/sites-enabled/
 
-# Install supervisor configuration
+# Copy supervisor configuration
 COPY omero_supervisor.conf /etc/supervisor/conf.d/omero_supervisor.conf
 
-# Install database backup script
+# Copy database backup script
 COPY backup-omero-database.sh /etc/cron.daily/backup-omero-database.sh
 
-VOLUME ['/data']
+# Copy omero startup script
+COPY start-omero-server.py /start-omero-server.py
 
+VOLUME ['/data']
 EXPOSE 4063 4064 80
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/omero_supervisor.conf"]
+ENTRYPOINT ["/start-omero-server.py"]
