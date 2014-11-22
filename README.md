@@ -61,10 +61,6 @@ To print all processes output to console, enable debug mode:
 docker run -p 4064:4064 -p 4063:4063 -p 8080:80 --name omero -v ~/omero_data:/data -t hadim/docker-omero --debug
 ```
 
-## TODO
-
-- add a system to use external database
-
 ## Authors
 
 Hadrien Mary <hadrien.mary@gmail.com>
