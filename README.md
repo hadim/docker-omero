@@ -28,6 +28,15 @@ However OMERO data folder resides into the container and so will be deleted once
 docker run -p 4064:4064 -p 4063:4063 -p 8080:80 --name omero -v ~/omero_data:/data -t hadim/docker-omero
 ```
 
+## Access to OMERO server bash
+
+If you want to perform some configuration tweaks you can still access to a running container :
+
+```
+# omero is the name of the running container
+docker exec -ti omero bash
+```
+
 ## Database backup
 
 Automatic backup of database is made every day via cron. Backups are stored to `/data/backups` with a script located in the container `/etc/cron.daily/backup-omero-database.sh`. To launch a manual backup, you can use :
