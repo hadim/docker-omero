@@ -59,7 +59,7 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 COPY omero_supervisor.conf /etc/supervisor/conf.d/omero_supervisor.conf
 
 # Copy database backup script
-COPY backup-omero-database.sh /etc/cron.daily/backup-omero-database.sh
+COPY backup-omero-database.sh /etc/cron.daily/backup-omero-database
 
 # Copy omero startup script
 COPY start-omero-server.py /start-omero-server.py
