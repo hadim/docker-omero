@@ -1,0 +1,18 @@
+# Build or pull images
+
+docker build -t omero-data omero-data
+docker build -t omero-postgres omero-postgres
+docker build -t omero omero
+
+# Init instances
+
+docker run --name data omero-data true
+docker run --volumes-from data -e PG_VAR=/data/postgres omero-postgres sh init.sh
+
+docker run -d --name pg --volumes-from data -e PG_VAR=/data/postgres omero-postgres
+docker run --link pg:pg --volumes-from data omero sh init.sh
+
+# Start instances
+
+docker run -d --name pg --volumes-from data -e PG_VAR=/data/postgres omero-postgres
+docker run -d --expose 4064 --name omero --link pg:pg --volumes-from data omero
