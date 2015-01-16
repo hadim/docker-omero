@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     python2.7 python-pil python-matplotlib python-pip \
     python-numpy python-tables python-scipy \
     openjdk-7-jre-headless ice35-services python-zeroc-ice \
-    mencoder nano postgresql-client-common
+    mencoder nano postgresql-client-9.3
 
 ENV BRANCH OMERO-5.1-latest
 ENV LABEL ICE=3.5
@@ -21,32 +21,41 @@ ENV OMERO_DIR /omero
 ENV OMERO_HOME $OMERO_DIR/OMERO.server
 
 # Default omero password
-ENV PASSWORD omero
+ENV PASSWORD password
 
+# Add omero user and install omego tools
 RUN useradd -m omero
 RUN pip install -U omego
 
 RUN mkdir $OMERO_DIR
 RUN chown omero $OMERO_DIR
 
+# DOwnload and install omero with omego
 USER omero
 WORKDIR $OMERO_DIR
 RUN omego download --branch=$BRANCH server --labels $LABEL
 RUN rm OMERO.server*zip
 RUN ln -s OMERO.server* $OMERO_HOME
 
-RUN echo 'cd $OMERO_HOME' >> /start.sh
+# Create script to start omero
+RUN echo 'cd $OMERO_HOME' >> $OMERO_DIR/start.sh
 RUN echo 'bin/omero config set omero.db.host $PG_PORT_5432_TCP_ADDR' >> $OMERO_DIR/start.sh
 RUN echo 'bin/omero config set omero.db.port $PG_PORT_5432_TCP_PORT' >> $OMERO_DIR/start.sh
 RUN echo 'bin/omero config set omero.data.dir $OMERO_DATA_DIR' >> $OMERO_DIR/start.sh
+RUN echo 'bin/omero admin start --foreground' >> $OMERO_DIR/start.sh
 
+# Create script to init omero
 RUN echo 'HOST="$PG_PORT_5432_TCP_ADDR"' >> $OMERO_DIR/init.sh
 RUN echo 'PORT="$PG_PORT_5432_TCP_PORT"' >> $OMERO_DIR/init.sh
 RUN echo 'cd $OMERO_HOME' >> $OMERO_DIR/init.sh
-RUN echo 'bin/omero db script "" "" "$PASSWORD" -f /init_db.sql' >> $OMERO_DIR/init.sh
+RUN echo 'if psql -h "$HOST" -p "$PORT" -U postgres -lqt | cut -d \| -f 1 | grep -w omero; then echo "Database already exist"; exit 1; fi' >> $OMERO_DIR/init.sh
+RUN echo 'bin/omero db script "" "" "$PASSWORD" -f $OMERO_DIR/init_db.sql' >> $OMERO_DIR/init.sh
 RUN echo 'createuser -h "$HOST" -p "$PORT" -U postgres -s omero' >> $OMERO_DIR/init.sh
 RUN echo 'createdb -h "$HOST" -p "$PORT" -O omero omero' >> $OMERO_DIR/init.sh
-RUN echo 'psql -h "$HOST" -p "$PORT" -U omero omero -f /init_db.sql' >> $OMERO_DIR/init.sh
-RUN echo 'rm -f /init_db.sql' >> $OMERO_DIR/init.sh
+RUN echo 'psql -h "$HOST" -p "$PORT" -U omero omero -f $OMERO_DIR/init_db.sql' >> $OMERO_DIR/init.sh
+RUN echo 'rm -f $OMERO_DIR/init_db.sql' >> $OMERO_DIR/init.sh
+RUN echo 'mkdir -p $OMERO_DATA_DIR' >> $OMERO_DIR/init.sh
+
+EXPOSE 4064
 
 CMD ["sh", "start.sh"]
