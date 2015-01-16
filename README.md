@@ -16,22 +16,10 @@ Init data and database containers:
 make init
 ```
 
-Start database:
-
-```
-make startpg
-```
-
-Init OMERO server:
-
-```
-make initomero
-```
-
 Start OMERO server:
 
 ```
-make startomero
+make start
 ```
 
 You can now connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Default admin credentials are root and password. Don't forget to change the password !
@@ -45,7 +33,7 @@ make stop
 To start the server at the same state than you stoped it:
 
 ```
-make startpg startomero
+make start
 ```
 
 If you erase the data container, you'll lost all OMERO data and you'll have to re do the init process.
