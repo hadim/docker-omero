@@ -36,21 +36,21 @@ make startomero
 
 You can now connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Default admin credentials are root and password. Don't forget to change the password !
 
-If you want to run the server, you can do:
+If you want to stop the OMERO server, you can do:
 
 ```
 make stop
 ```
 
-To start the server at the same state than when you'll stop it:
+To start the server at the same state than you stoped it:
 
 ```
 make startpg startomero
 ```
 
-If you erase the data container, you'll lost all OMERO data and you have to re do the init process.
+If you erase the data container, you'll lost all OMERO data and you'll have to re do the init process.
 
-To explore the data container you can do:
+To start a shell in the data container:
 
 ```
 make datash
