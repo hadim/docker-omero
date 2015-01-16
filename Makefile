@@ -1,5 +1,3 @@
-BACKUP_NAME := $(date +"%Y_%m_%d_%H_%M_omero.tar.bz2")
-
 init:
 	docker run --name data omero-data true
 	docker run --volumes-from data --rm=true -e PGDATA=/data/postgres omero-postgres sh init.sh

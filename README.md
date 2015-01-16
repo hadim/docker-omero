@@ -71,6 +71,7 @@ make startpg startomero
 
 ## TODO
 
+- investigate fig
 - add web server
 - add processor server
 - add LDAP server
