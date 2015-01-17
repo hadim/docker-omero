@@ -92,6 +92,7 @@ Things needed to have complete support of this project:
 - `fig up` should only run a subset of containers : https://github.com/docker/fig/issues/697
 - Explicit container names : https://github.com/docker/fig/issues/652
 - Support every `docker run` options : https://github.com/docker/fig/issues/754 and https://github.com/docker/fig/issues/363
+- Support exec command : https://github.com/docker/fig/issues/593
 
 ## About the images
 

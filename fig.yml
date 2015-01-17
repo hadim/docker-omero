@@ -26,3 +26,17 @@ omeroweb:
     - omeroserver:omero_server
   ports:
     - "80:80"
+
+# datashell:
+#   build: omero-data
+#   command: sh
+#   volumes_from:
+#     - data
+
+# backup:
+#   build: omero-data
+#   command: tar -cvf /tmp/${BACKUP_NAME:backup.tar} /data
+#   volumes_from:
+#     - data
+#   volumes:
+#     - ${BACKUP_DIR:tmp}:/tmp
