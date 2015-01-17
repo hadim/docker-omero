@@ -11,6 +11,7 @@ ENV EXEC $PGBIN/postgres
 ENV PORT 5432
 
 # Add start script
+RUN echo 'if [ ! -d "$PGDATA" ]; then sh /init.sh; fi' >> /start.sh
 RUN echo 'su postgres -c "'$EXEC' -p '$PORT' -D $PGDATA -c config_file=$PGDATA/postgresql.conf"' >> /start.sh
 
 # Add init script

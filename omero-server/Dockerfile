@@ -24,6 +24,7 @@ RUN echo 'rm -f $OMERO_DIR/init_db.sql' >> $OMERO_DIR/init.sh
 RUN echo 'mkdir -p $OMERO_DATA_DIR' >> $OMERO_DIR/init.sh
 
 # Create script to start omero and symlink OMERO.server/var to /data/omero_var
+RUN echo 'if [ ! -d "$OMERO_DATA_DIR" ]; then sh $OMERO_DIR/init.sh; fi' >> $OMERO_DIR/start.sh
 RUN echo 'cd $OMERO_HOME' >> $OMERO_DIR/start.sh
 RUN echo 'mkdir -p $OMERO_VAR_DIR' >> $OMERO_DIR/start.sh
 RUN echo 'rm -fr var' >> $OMERO_DIR/start.sh

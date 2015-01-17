@@ -1,29 +1,29 @@
-init:
+# Init data container
+initdata:
 	docker run --name data omero-data true
-	docker run --volumes-from data --rm=true -e PGDATA=/data/postgres omero-postgres sh init.sh
-	docker run -d --name pg --volumes-from data -e PGDATA=/data/postgres omero-postgres
-	docker run --link pg:pg --volumes-from data -ti --rm=true -p 4064:4064 omero-server sh init.sh
 
-start:
-	docker stop pg ; docker rm pg ; \
+# Start containers
+start: runpg runomeroserver runomeroweb
+
+runpg:
 	docker run -d --name pg --volumes-from data -e PGDATA=/data/postgres omero-postgres
+
+runomeroserver:
 	docker run -d --name omero-server --link pg:pg --volumes-from data -p 4064:4064 omero-server
-	docker run -d --name omero-web --link omero-server:omero_server -p 80:80 omero-web
 
-# Stop instances except data
+runomeroweb:
+	docker run -d --name omero-web --link omero-server:omero_server --volumes-from data -p 80:80 omero-web
+
 stop:
-	docker stop pg
-	docker rm pg
 	docker stop omero-server
 	docker rm omero-server
+	docker stop pg
+	docker rm pg
 	docker stop omero-web
 	docker rm omero-web
 
 # Build images
-build: mkomero-base mkdata mkpostgres mkomero-server mkomero-web
-
-mkomero-base:
-	docker build -t omero-base omero-base
+build: mkdata mkpostgres mkomero-server mkomero-web
 
 mkdata:
 	docker build -t omero-data omero-data

@@ -10,15 +10,10 @@ Build images:
 make build
 ```
 
-Init data and database containers:
-
-```
-make init
-```
-
 ## How to start OMERO.server:
 
 ```
+make initdata
 make start
 ```
 
@@ -45,10 +40,10 @@ make datash
 If you want to definitively remove data container (all data inside will be lost):
 
 ```
-docker remove data
+docker rm data
 ```
 
-You will need to re do the init process (`make init`).
+You will have to re init data container with `make initdata`.
 
 ## Log
 
