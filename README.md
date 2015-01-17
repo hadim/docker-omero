@@ -22,7 +22,7 @@ make init
 make start
 ```
 
-You can now connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Default admin credentials are root and password. Don't forget to change the password !
+You can now connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Or you can access via OMERO.web client at http://localhost:80. Default admin credentials are root and password. Don't forget to change the password !
 
 If you want to stop the OMERO server, you can do:
 
@@ -77,6 +77,18 @@ Next you can restore a backup and start a new instance of OMERO.server with:
 sh restore.sh /some_directory/backup_file.tar.bz2
 make start
 ```
+
+## About the images
+
+**omero-base**: based on ubuntu 14.04, it contains omego and install OMERO.server.
+
+**omero-data**: volume container based on busybox. `/data` is defined as a volume.
+
+**omero-postgres**: based on postgres:9.3. It contains only few modifications from the original image.
+
+**omero-server**: based on omero-base, it runs OMERO.server.
+
+**omero-web**: based on omero-base, it runs OMERO.web.
 
 ## TODO
 
