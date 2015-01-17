@@ -86,6 +86,13 @@ Use `fig up -d` if you want to run in background.
 
 For now, using Fig does not allow backup/restore scripts and commands like `make datash`.
 
+Things needed to have complete support of this project:
+
+- Variable expansion inside fig.yml (with default value) : https://github.com/docker/fig/issues/495
+- `fig up` should only run a subset of containers : https://github.com/docker/fig/issues/697
+- Explicit container names : https://github.com/docker/fig/issues/652
+- Support every `docker run` options : https://github.com/docker/fig/issues/754 and https://github.com/docker/fig/issues/363
+
 ## About the images
 
 **omero-base**: based on ubuntu 14.04, it contains omego and install OMERO.server.
