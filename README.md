@@ -73,6 +73,19 @@ sh restore.sh /some_directory/backup_file.tar.bz2
 make start
 ```
 
+## Fig support
+
+`docker-omero` can also use [Fig](http://www.fig.sh/index.html) to setup and start containers.
+
+```
+fig build
+fig up
+```
+
+Use `fig up -d` if you want to run in background.
+
+For now, using Fig does not allow backup/restore scripts and commands like `make datash`.
+
 ## About the images
 
 **omero-base**: based on ubuntu 14.04, it contains omego and install OMERO.server.
