@@ -10,4 +10,5 @@ run chown sysadmin.sysadmin /data
 run chmod a+w /data
 run touch /data/init_volume
 
+WORKDIR /data
 VOLUME /data

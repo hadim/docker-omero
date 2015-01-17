@@ -1,8 +1,8 @@
 # docker-omero
 
-Set of Dockerfile to setup an OMERO server. This project aims to be used in production.
+Set of Dockerfile to setup an OMERO server. This project aims to be used in production. For now `docker-omero` does not use [Docker Hub](https://hub.docker.com). It will in the future when the project will be more stable.
 
-## Quick usage
+## How to setup OMERO.server
 
 Build images:
 
@@ -16,7 +16,7 @@ Init data and database containers:
 make init
 ```
 
-Start OMERO server:
+## How to start OMERO.server:
 
 ```
 make start
@@ -36,13 +36,34 @@ To start the server at the same state than you stoped it:
 make start
 ```
 
-If you erase the data container, you'll lost all OMERO data and you'll have to re do the init process.
-
 To start a shell in the data container:
 
 ```
 make datash
 ```
+
+If you want to definitively remove data container (all data inside will be lost):
+
+```
+docker remove data
+```
+
+You will need to re do the init process (`make init`).
+
+## Log
+
+`var` directory (which contains logs) is symlinked to `/data/omero_var`.
+
+```
+make datash
+ls omero_var/log/
+Blitz-0.log        FileServer.log     MonitorServer.log  Processor-0.log    master.err
+DropBox.log        Indexer-0.log      PixelData-0.log    Tables-0.log       master.out
+```
+
+Note that you can also access to the omero container with `make omerosh`.
+
+## Backup and restore
 
 If you want to make a backup you can run:
 
@@ -50,11 +71,11 @@ If you want to make a backup you can run:
 sh backup.sh /some_directory
 ```
 
-Next you can restore a backup and start a new instance of OMERO server with:
+Next you can restore a backup and start a new instance of OMERO.server with:
 
 ```
 sh restore.sh /some_directory/backup_file.tar.bz2
-make startpg startomero
+make start
 ```
 
 ## TODO
@@ -62,8 +83,6 @@ make startpg startomero
 - investigate fig
 - add web server
 - add processor server
-- add LDAP server
-- import/export custome database/data
 
 ## Authors
 

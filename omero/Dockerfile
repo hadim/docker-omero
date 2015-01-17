@@ -17,6 +17,7 @@ ENV LABEL ICE=3.5
 
 # Path variables
 ENV OMERO_DATA_DIR /data/omero_data
+ENV OMERO_VAR_DIR /data/omero_var
 ENV OMERO_DIR /omero
 ENV OMERO_HOME $OMERO_DIR/OMERO.server
 
@@ -30,15 +31,18 @@ RUN pip install -U omego
 RUN mkdir $OMERO_DIR
 RUN chown omero $OMERO_DIR
 
-# DOwnload and install omero with omego
+# Download and install omero with omego
 USER omero
 WORKDIR $OMERO_DIR
 RUN omego download --branch=$BRANCH server --labels $LABEL
 RUN rm OMERO.server*zip
 RUN ln -s OMERO.server* $OMERO_HOME
 
-# Create script to start omero
+# Create script to start omero and symlink OMERO.server/var to /data/omero_var
 RUN echo 'cd $OMERO_HOME' >> $OMERO_DIR/start.sh
+RUN echo 'mkdir -p $OMERO_VAR_DIR' >> $OMERO_DIR/start.sh
+RUN echo 'rm -fr var' >> $OMERO_DIR/start.sh
+RUN echo 'ln -s $OMERO_VAR_DIR var' >> $OMERO_DIR/start.sh
 RUN echo 'bin/omero config set omero.db.host $PG_PORT_5432_TCP_ADDR' >> $OMERO_DIR/start.sh
 RUN echo 'bin/omero config set omero.db.port $PG_PORT_5432_TCP_PORT' >> $OMERO_DIR/start.sh
 RUN echo 'bin/omero config set omero.data.dir $OMERO_DATA_DIR' >> $OMERO_DIR/start.sh
