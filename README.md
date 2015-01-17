@@ -86,7 +86,7 @@ Use `fig up -d` if you want to run in background.
 
 For now, using Fig does not allow backup/restore scripts and commands like `make datash`.
 
-Things needed to have complete support of this project:
+Things needed to have complete support:
 
 - Variable expansion inside fig.yml (with default value) : https://github.com/docker/fig/issues/495
 - `fig up` should only run a subset of containers : https://github.com/docker/fig/issues/697
