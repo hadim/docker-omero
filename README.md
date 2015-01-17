@@ -92,7 +92,7 @@ make start
 
 See this schema for more details about how things are connected:
 
-![Schema of docker-omero](schema.svg)
+![Schema of docker-omero](schema.png)
 
 ## TODO
 
