@@ -90,10 +90,13 @@ make start
 
 **omero-web**: based on omero-base, it runs OMERO.web.
 
+See this schema for more details about how things are connected:
+
+![Schema of docker-omero](schema.svg)
+
 ## TODO
 
 - investigate fig
-- add web server
 - add processor server
 
 ## Authors
