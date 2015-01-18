@@ -112,7 +112,8 @@ See this schema for more details about how things are connected:
 
 ## TODO
 
-- investigate fig
+- investigate fig (in progress)
+- use incremental backup with attic
 - add processor server
 
 ## Authors
