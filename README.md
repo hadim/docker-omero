@@ -69,7 +69,7 @@ sh backup.sh /some_directory
 Next you can restore a backup and start a new instance of OMERO.server with:
 
 ```
-sh restore.sh /some_directory/backup_file.tar.bz2
+sh restore.sh /some_directory/backup_file.tar
 make start
 ```
 
