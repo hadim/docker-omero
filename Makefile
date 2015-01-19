@@ -1,3 +1,6 @@
+WEB_PORT=80
+SERVER_PORT=4064
+
 # Init data container
 initdata:
 	docker run --name data omero-data true
@@ -12,14 +15,16 @@ runomeroserver:
 	docker run -d --name omero-server --link pg:pg --volumes-from data -p 4064:4064 omero-server
 
 runomeroweb:
-	docker run -d --name omero-web --link omero-server:omero_server --volumes-from data -p 80:80 omero-web
+	docker run -d --name omero-web --link omero-server:omero_server --volumes-from data -p $(WEB_PORT):80 omero-web
 
 stop:
 	docker stop omero-server
-	docker rm omero-server
 	docker stop pg
-	docker rm pg
 	docker stop omero-web
+
+rm:
+	docker rm omero-server
+	docker rm pg
 	docker rm omero-web
 
 # Build images
