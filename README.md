@@ -112,10 +112,8 @@ See this schema for more details about how things are connected:
 
 ## TODO
 
-- get rid of omero-postgres and only use postgres basic images
-- get rid of omero-data ? (maybe useless since we can use VOLUME for omero-postgres and omero-server)
 - investigate fig (in progress)
-- use incremental backup with attic or rdiff-backup
+- investigate incremental backup with rdiff-backup
 - add processor server
 
 ## Authors
