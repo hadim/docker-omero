@@ -19,6 +19,13 @@ make start
 
 You can now connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Or you can access via OMERO.web client at http://localhost:80. Default admin credentials are root and password. Don't forget to change the password !
 
+Note that you can also init data container on an host directory with:
+
+```
+make OMERO_DATA_DIR=~/data initdatahost
+make start
+```
+
 If you want to stop the OMERO server, you can do:
 
 ```

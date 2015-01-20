@@ -1,9 +1,16 @@
 WEB_PORT=80
 SERVER_PORT=4064
+OMERO_DATA_DIR=~/data
 
 # Init data container
 initdata:
 	docker run --name data omero-data true
+
+# Init data container with volume on host
+initdatahost:
+	mkdir -p $(OMERO_DATA_DIR)
+	chmod 777 $(OMERO_DATA_DIR)
+	docker run --name data -v $(OMERO_DATA_DIR):/data omero-data true
 
 # Start containers
 start: runpg runomeroserver runomeroweb
