@@ -2,11 +2,12 @@ FROM omero-base
 
 MAINTAINER hadrien.mary@gmail.com
 
-RUN apt-get install -y nginx supervisor
+RUN apt-get install -y nginx supervisor python-pip
 
 ## Setup nginx
+RUN pip install -r $OMERO_HOME/share/web/requirements-py27-nginx.txt
 USER omero
-RUN $OMERO_HOME/bin/omero web config nginx --system --http 80 > $OMERO_HOME/nginx.conf.tmp
+RUN $OMERO_HOME/bin/omero web config nginx --http 80 > $OMERO_HOME/nginx.conf.tmp
 
 USER root
 RUN mv $OMERO_HOME/nginx.conf.tmp /etc/nginx/sites-available/omero-web
@@ -14,14 +15,10 @@ RUN rm /etc/nginx/sites-enabled/default
 RUN ln -s /etc/nginx/sites-available/omero-web /etc/nginx/sites-enabled/
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-# Create script to start omero and symlink OMERO.server/var to /data/omero_var
-RUN echo 'cd $OMERO_HOME' >> $OMERO_DIR/start.sh
-RUN echo 'bin/omero config set omero.web.server_list "[[\"$OMERO_SERVER_PORT_4064_TCP_ADDR\", 4064, \"omero\"]]"' >> $OMERO_DIR/start.sh
-RUN echo 'bin/omero web start' >> $OMERO_DIR/start.sh
-RUN chown omero $OMERO_DIR/start.sh
-
 EXPOSE 80
 
-COPY supervisor.conf $OMERO_DIR/supervisor.conf
+COPY supervisor.conf /supervisor.conf
+COPY start.sh /start.sh
+RUN chown omero /start.sh
 
-CMD ["/usr/bin/supervisord", "-c", "/omero/supervisor.conf", "-e", "info"]
+CMD ["/usr/bin/supervisord", "-c", "/supervisor.conf", "-e", "info"]

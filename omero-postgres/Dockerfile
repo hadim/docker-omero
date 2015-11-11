@@ -10,17 +10,7 @@ ENV EXEC $PGBIN/postgres
 
 ENV PORT 5432
 
-# Add start script
-RUN echo 'if [ ! -d "$PGDATA" ]; then sh /init.sh; fi' >> /start.sh
-RUN echo 'su postgres -c "'$EXEC' -p '$PORT' -D $PGDATA -c config_file=$PGDATA/postgresql.conf"' >> /start.sh
+COPY start.sh /start.sh
+COPY init.sh /init.sh
 
-# Add init script
-RUN echo "chown -R postgres "$PGDATA"" >> /init.sh
-RUN echo 'su postgres -c "'$INITDB' -D $PGDATA"' >> /init.sh
-RUN echo 'echo "'listen_addresses = \'*\''" >> $PGDATA/postgresql.conf' >> /init.sh
-RUN echo 'echo "host all all 0.0.0.0/0 trust" >> $PGDATA/pg_hba.conf' >> /init.sh
-
-RUN echo 'sysadmin:x:1000:' >> /etc/group
-RUN usermod -a -G sysadmin postgres
-
-CMD ["sh", "start.sh"]
+CMD ["bash", "/start.sh"]

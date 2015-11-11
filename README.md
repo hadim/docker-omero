@@ -1,105 +1,80 @@
 # docker-omero
 
-Set of Dockerfile to setup an OMERO server. This project aims to be used in production. For now `docker-omero` does not use [Docker Hub](https://hub.docker.com). It will in the future when the project will be more stable.
+Set of Dockerfile to setup an OMERO.server. This project aims to be used in production.
 
-## How to setup OMERO.server
+## How to start your OMERO.server (with OMERO.web)
 
-Build images:
+Clone this repo :
 
+```sh
+git clone https://github.com/hadim/docker-omero.git
 ```
-make build
-```
 
-## How to start OMERO.server:
+Then start the server :
 
-```
-make initdata
+```sh
+make initdatahost
 make start
 ```
 
-You can now connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Or you can access via OMERO.web client at http://localhost:80. Default admin credentials are root and password. Don't forget to change the password !
+Wait a minute so the server initialize. Then you can connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Or you can access via OMERO.web client at http://localhost:8080. Default admin credentials are `root` and `password`. Don't forget to change the password !
 
-Note that you can also init data container on an host directory with:
+By default `~/data` will be used as OMERO data directoy. `8080` is the default port for OMERO.web and `4064` is the default port for OMERO.server.
 
-```
-make OMERO_DATA_DIR=~/data initdatahost
+To change this behaviour you can do the following :
+
+```sh
+make OMERO_DATA_DIR=/var/data/my_custom_data_location initdatahost
 make start
 ```
 
-If you want to stop the OMERO server, you can do:
+If you want to stop and remove OMERO.server, use :
 
-```
-make stop
-```
-
-To start the server at the same state than you stoped it:
-
-```
-make start
+```sh
+make rm
 ```
 
-To start a shell in the data container:
+You can also start OMERO without data directory mounted on host by using `make initdata` instead of `make initdatahost`.
 
-```
+To start a shell in the data container :
+
+```sh
 make datash
 ```
 
-If you want to definitively remove data container (all data inside will be lost):
+In the OMERO.server :
 
-```
-docker rm data
+```sh
+make omerosh
 ```
 
-You will have to re init data container with `make initdata`.
+
+In the PGSQL server :
+
+```sh
+make pgsh
+```
 
 ## Log
 
 `var` directory (which contains logs) is symlinked to `/data/omero_var`.
 
-```
-make datash
-ls omero_var/log/
+```sh
+$ make datash
+# ls omero_var/log/
 Blitz-0.log        FileServer.log     MonitorServer.log  Processor-0.log    master.err
 DropBox.log        Indexer-0.log      PixelData-0.log    Tables-0.log       master.out
 ```
 
-Note that you can also access to the omero container with `make omerosh`.
-
 ## Backup and restore
 
-If you want to make a backup you can run:
+You need to design a backup strategy according to your needs. All data needed to restart a server are located inside `OMERO_DATA_DIR` which is `~/data` by default.
 
-```
-sh backup.sh /some_directory
-```
+The server will automatìcally use data inside `OMERO_DATA_DIR` on startup.
 
-Next you can restore a backup and start a new instance of OMERO.server with:
+## Docker-compose support
 
-```
-sh restore.sh /some_directory/backup_file.tar
-make start
-```
-
-## Fig support
-
-`docker-omero` can also use [Fig](http://www.fig.sh/index.html) to setup and start containers.
-
-```
-fig build
-fig up
-```
-
-Use `fig up -d` if you want to run in background.
-
-For now, using Fig does not allow backup/restore scripts and commands like `make datash`.
-
-Things needed to have complete support:
-
-- Variable expansion inside fig.yml (with default value) : https://github.com/docker/fig/issues/495
-- `fig up` should only run a subset of containers : https://github.com/docker/fig/issues/697
-- Explicit container names : https://github.com/docker/fig/issues/652
-- Support every `docker run` options : https://github.com/docker/fig/issues/754 and https://github.com/docker/fig/issues/363
-- Support exec command : https://github.com/docker/fig/issues/593
+For now `docker-compose` does not seem flexible enough to be used here. PR are welcome !
 
 ## About the images
 
@@ -116,12 +91,6 @@ Things needed to have complete support:
 See this schema for more details about how things are connected:
 
 ![Schema of docker-omero](schema.png)
-
-## TODO
-
-- investigate fig (in progress)
-- investigate incremental backup with rdiff-backup
-- add processor server
 
 ## Authors
 

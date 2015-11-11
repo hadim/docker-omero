@@ -1,41 +1,48 @@
-WEB_PORT=80
-SERVER_PORT=4064
+.PHONY: initdata initdatahost runpg runomeroserver runomeroweb stop rm
+
+OMERO_WEB_PORT=8080
+OMERO_SERVER_PORT=4064
 OMERO_DATA_DIR=~/data
 
 # Init data container
 initdata:
-	docker run --name data omero-data true
+	docker run --name omero-data omero-data true
 
 # Init data container with volume on host
 initdatahost:
 	mkdir -p $(OMERO_DATA_DIR)
 	chmod 777 $(OMERO_DATA_DIR)
-	docker run --name data -v $(OMERO_DATA_DIR):/data omero-data true
+	docker run --name omero-data --privileged=true -v $(OMERO_DATA_DIR):/data:Z omero-data true
 
 # Start containers
-start: runpg runomeroserver runomeroweb
+start: build runpg runomeroserver runomeroweb
 
 runpg:
-	docker run -d --name pg --volumes-from data -e PGDATA=/data/postgres omero-postgres
+	docker run -d --name omero-pg --volumes-from omero-data -e PGDATA=/data/postgres omero-postgres
 
 runomeroserver:
-	docker run -d --name omero-server --link pg:pg --volumes-from data -p 4064:4064 omero-server
+	docker run -d --name omero-server --link omero-pg:omero-pg --volumes-from omero-data -p $(OMERO_SERVER_PORT):4064 omero-server
 
 runomeroweb:
-	docker run -d --name omero-web --link omero-server:omero_server --volumes-from data -p $(WEB_PORT):80 omero-web
+	docker run -d --name omero-web --link omero-server:omero_server -p $(OMERO_WEB_PORT):80 omero-web
 
 stop:
 	docker stop omero-server
-	docker stop pg
+	docker stop omero-pg
 	docker stop omero-web
+	docker stop omero-data
 
 rm:
-	docker rm omero-server
-	docker rm pg
-	docker rm omero-web
+	docker rm -f omero-server; \
+	docker rm -f omero-pg; \
+	docker rm -f omero-web; \
+	docker rm -f omero-data
 
 # Build images
-build: mkdata mkpostgres mkomero-server mkomero-web
+build: mkbase mkdata mkpostgres mkomero-server mkomero-web
+
+mkbase:
+	docker build -t omero-base omero-base
 
 mkdata:
 	docker build -t omero-data omero-data
@@ -51,12 +58,10 @@ mkomero-web:
 
 # Get shell
 datash:
-	docker run -ti --volumes-from data --rm=true omero-data sh
+	docker run -ti --volumes-from omero-data --rm=true omero-data sh
 
 pgsh:
-	docker exec -ti pg bash
+	docker exec -ti omero-pg bash
 
 omerosh:
 	docker exec -ti omero-server bash
-
-

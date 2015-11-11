@@ -10,9 +10,9 @@ RUN apt-get update && apt-get install -y \
     python2.7 python-pil python-matplotlib python-pip \
     python-numpy python-tables python-scipy \
     openjdk-7-jre-headless ice35-services python-zeroc-ice \
-    mencoder nano postgresql-client-9.3
+    mencoder nano postgresql-client-9.3 postgresql-client-common
 
-ENV BRANCH OMERO-5.1-latest
+ENV BRANCH 5.2
 ENV LABEL ICE=3.5
 
 # Path variables

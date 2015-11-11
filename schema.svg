@@ -13,7 +13,7 @@
    height="839.79462"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r"
    sodipodi:docname="schema.svg"
    inkscape:export-filename="/home/hadim/Documents/phd/dev/docker-omero/schema.png"
    inkscape:export-xdpi="90"
@@ -28,8 +28,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="468.41833"
-     inkscape:cy="271.59715"
+     inkscape:cx="474.87486"
+     inkscape:cy="232.50884"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -224,13 +224,13 @@
          sodipodi:linespacing="125%"
          id="text3861"
          y="298.69705"
-         x="411.32385"
-         style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         x="422.20276"
+         style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:Sans;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none"
          xml:space="preserve"><tspan
            y="298.69705"
-           x="411.32385"
+           x="422.20276"
            id="tspan3863"
-           sodipodi:role="line">pg</tspan></text>
+           sodipodi:role="line">omero-pg</tspan></text>
     </g>
     <g
        id="g3835"
