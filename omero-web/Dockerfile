@@ -2,12 +2,12 @@ FROM omero-base
 
 MAINTAINER hadrien.mary@gmail.com
 
-RUN apt-get install -y nginx supervisor python-pip
+ENV OMERO_WEB_CERTS_DIR /data/web_certs
 
-## Setup nginx
+RUN apt-get install -y nginx-full supervisor python-pip openssl
+
 RUN pip install -r $OMERO_HOME/share/web/requirements-py27-nginx.txt
-USER omero
-RUN $OMERO_HOME/bin/omero web config nginx --http 80 > $OMERO_HOME/nginx.conf.tmp
+COPY nginx_omero.conf $OMERO_HOME/nginx.conf.tmp
 
 USER root
 RUN mv $OMERO_HOME/nginx.conf.tmp /etc/nginx/sites-available/omero-web
@@ -16,6 +16,7 @@ RUN ln -s /etc/nginx/sites-available/omero-web /etc/nginx/sites-enabled/
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 EXPOSE 80
+EXPOSE 443
 
 COPY supervisor.conf /supervisor.conf
 COPY start.sh /start.sh

@@ -1,6 +1,7 @@
 .PHONY: initdata initdatahost runpg runomeroserver runomeroweb stop rm
 
 OMERO_WEB_PORT=8080
+OMERO_WEB_PORT_SSL=443
 OMERO_SERVER_PORT=4064
 OMERO_DATA_DIR=~/data
 
@@ -24,7 +25,7 @@ runomeroserver:
 	docker run -d --name omero-server --link omero-pg:omero-pg --volumes-from omero-data -p $(OMERO_SERVER_PORT):4064 omero-server
 
 runomeroweb:
-	docker run -d --name omero-web --link omero-server:omero_server -p $(OMERO_WEB_PORT):80 omero-web
+	docker run -d --name omero-web --volumes-from omero-data --link omero-server:omero_server -p $(OMERO_WEB_PORT):80 -p $(OMERO_WEB_PORT_SSL):443 omero-web
 
 stop:
 	docker stop omero-server
