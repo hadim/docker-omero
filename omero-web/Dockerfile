@@ -3,23 +3,27 @@ FROM omero-base
 MAINTAINER hadrien.mary@gmail.com
 
 ENV OMERO_WEB_CERTS_DIR /data/web_certs
+ENV OMERO_WEB_USE_SSL yes
 
 RUN apt-get install -y nginx-full supervisor python-pip openssl
 
 RUN pip install -r $OMERO_HOME/share/web/requirements-py27-nginx.txt
-COPY nginx_omero.conf $OMERO_HOME/nginx.conf.tmp
+COPY nginx_omero.conf $OMERO_HOME/nginx_omero.conf
+COPY nginx_omero_ssl.conf $OMERO_HOME/nginx_omero_ssl.conf
 
 USER root
-RUN mv $OMERO_HOME/nginx.conf.tmp /etc/nginx/sites-available/omero-web
 RUN rm /etc/nginx/sites-enabled/default
-RUN ln -s /etc/nginx/sites-available/omero-web /etc/nginx/sites-enabled/
+RUN mv $OMERO_HOME/nginx_omero.conf /etc/nginx/sites-available/nginx_omero.conf
+RUN mv $OMERO_HOME/nginx_omero_ssl.conf /etc/nginx/sites-available/nginx_omero_ssl.conf
+
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 EXPOSE 80
 EXPOSE 443
 
 COPY supervisor.conf /supervisor.conf
-COPY start.sh /start.sh
-RUN chown omero /start.sh
+COPY start_nginx.sh /start_nginx.sh
+COPY start_omero_web.sh /start_omero_web.sh
+RUN chown omero /start_omero_web.sh
 
 CMD ["/usr/bin/supervisord", "-c", "/supervisor.conf", "-e", "info"]

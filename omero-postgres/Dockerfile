@@ -1,9 +1,9 @@
-FROM postgres:9.3
+FROM postgres:9.4
 MAINTAINER hadrien.mary@gmail.com
 
 # Define some variables
 ENV PGDATA /var/lib/postgresql/data
-ENV PGBIN /usr/lib/postgresql/9.3/bin/
+ENV PGBIN /usr/lib/postgresql/9.4/bin/
 
 ENV INITDB $PGBIN/initdb
 ENV EXEC $PGBIN/postgres

@@ -1,3 +1,10 @@
+# Wait for data directory to be up
+while [ ! -d $(dirname $PGDATA) ]
+do
+    echo "Waiting for $(dirname $PGDATA) directory to be up."
+    sleep 5s;
+done
+
 if [ ! -d "$PGDATA" ]; then
     bash /init.sh;
 fi

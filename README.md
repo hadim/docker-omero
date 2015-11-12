@@ -61,7 +61,7 @@ make pgsh
 
 ```sh
 $ make datash
-# ls omero_var/log/
+$ ls omero_var/log/
 Blitz-0.log        FileServer.log     MonitorServer.log  Processor-0.log    master.err
 DropBox.log        Indexer-0.log      PixelData-0.log    Tables-0.log       master.out
 ```
@@ -74,19 +74,44 @@ The server will automatìcally use data inside `OMERO_DATA_DIR` on startup.
 
 ## Docker-compose support
 
-For now `docker-compose` does not seem flexible enough to be used here. PR are welcome !
+You can also use `docker-compose` if you want, which will probably replace `Makefile` in a near future.
+
+Warning : you absolutely need to declare env variables within the same shell as the one used to launch all `docker-compose` commands since `docker-compose` does not support (yet!) default variables during substitution.
+
+```sh
+export OMERO_WEB_PORT=80
+export OMERO_WEB_PORT_SSL=443
+export OMERO_SERVER_PORT=4064
+export OMERO_DATA_DIR=~/data
+export OMERO_WEB_USE_SSL=yes
+
+mkdir -p $OMERO_DATA_DIR
+```
+
+Then :
+
+```sh
+# Build base image
+docker build -t omero-base omero-base
+
+# Build compose images
+docker-compose build
+
+# Start services
+docker-compose up
+```
 
 ## About the images
 
-**omero-base**: based on ubuntu 14.04, it contains omego and install OMERO.server.
+**omero-base**: based on `ubuntu:14.04`, it contains omego and install OMERO.server.
 
-**omero-data**: volume container based on busybox. `/data` is defined as a volume.
+**omero-data**: volume container based on `busybox`. `/data` is defined as a volume.
 
-**omero-postgres**: based on postgres:9.3. It contains only few modifications from the original image.
+**omero-postgres**: based on `postgres:9.4`. It contains only few modifications from the original image.
 
-**omero-server**: based on omero-base, it runs OMERO.server.
+**omero-server**: based on `omero-base`, it runs OMERO.server.
 
-**omero-web**: based on omero-base, it runs OMERO.web.
+**omero-web**: based on `omero-base`, it runs OMERO.web.
 
 See this schema for more details about how things are connected:
 

@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     openjdk-7-jre-headless ice35-services python-zeroc-ice \
     mencoder nano postgresql-client-9.3 postgresql-client-common
 
-ENV BRANCH 5.2
+ENV BRANCH 5.2.0
 ENV LABEL ICE=3.5
 
 # Path variables
@@ -29,7 +29,9 @@ RUN chown omero $OMERO_DIR
 # Download and install omero with omego
 USER omero
 WORKDIR $OMERO_DIR
-RUN omego download --branch=$BRANCH server --labels $LABEL
+#RUN omego download --branch=$BRANCH server --labels $LABEL
+RUN wget http://downloads.openmicroscopy.org/omero/$BRANCH/./artifacts/OMERO.server-$BRANCH-ice35-b12.zip
+RUN unzip OMERO.server-*.zip
 RUN rm OMERO.server*zip
 RUN ln -s OMERO.server* $OMERO_HOME
 

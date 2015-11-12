@@ -1,3 +1,10 @@
+# Wait for data directory to be up
+while [ ! -d $(dirname $OMERO_DATA_DIR) ]
+do
+    echo "Waiting for $(dirname $OMERO_DATA_DIR) directory to be up."
+    sleep 5s;
+done
+
 HOST="$OMERO_PG_PORT_5432_TCP_ADDR"
 PORT="$OMERO_PG_PORT_5432_TCP_PORT"
 
