@@ -2,7 +2,7 @@
 
 Set of `Dockerfile` to setup an OMERO.server. This project aims to be used in production.
 
-_But the main purpose is of this project is to make you love running OMERO.server :-)_
+_But the main purpose of this project is to make you love running OMERO.server :-)_
 
 ## How to start your OMERO.server
 
@@ -46,7 +46,9 @@ docker-compose up
 
 It will launch all services : PostgreSQL server, OMERO.server and OMERO.web.
 
-Wait a minute so the server can initialize. Then you can connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Or you can access via OMERO.web client at http://localhost:80. Default admin credentials are `root` and `password`. Don't forget to change the password !
+Wait a minute so the server can initialize. Then you can connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Or you can access via OMERO.web client at http://localhost:80.
+
+Default admin credentials are `root` and `password`. Don't forget to change the password !
 
 By default `~/data` will be used as OMERO data directoy. `80` is the default port for OMERO.web and `4064` is the default port for OMERO.server.
 
@@ -56,7 +58,7 @@ By default `~/data` will be used as OMERO data directoy. `80` is the default por
 
 - `OMERO_WEB_PORT_SSL` (default=443) : port used to expose OMERO.web server in secure mode (`https`).
 
-- `OMERO_SERVER_PORT` (default=4064) : port used to expose OMERO.server. This port need to be used when using the desktop client (OMERO Insight client).
+- `OMERO_SERVER_PORT` (default=4064) : port used to expose OMERO.server. This port needs to be used when using the desktop client (OMERO Insight client).
 
 - `OMERO_WEB_PORT_DEVELOPMENT` (default=4080) : port used to expose OMERO.web server in development mode.
 
@@ -76,7 +78,7 @@ docker-compose run --rm --name omero-server omero-server
 make runserver
 ```
 
-If you want to launch OMERO.web in development mode you use the following commands :
+If you want to launch OMERO.web in development mode you can use the following commands :
 
 ```sh
 export OMERO_WEB_DEVELOPMENT=yes
