@@ -4,6 +4,9 @@ runserver:
 	docker-compose run --rm omero-server
 
 runweb:
+	docker-compose run --rm --name omero-web omero-web
+
+runwebdev:
 	docker-compose run --rm --name omero-web omero-web bash
 
 shellserver:

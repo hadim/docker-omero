@@ -83,7 +83,7 @@ If you want to launch OMERO.web in development mode you can use the following co
 ```sh
 export OMERO_WEB_DEVELOPMENT=yes
 
-docker-compose run --rm --name omero-web omero-web bash
+docker-compose run --rm --name omero-web omero-web
 # or use
 make runweb
 ```
