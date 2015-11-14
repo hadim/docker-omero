@@ -106,9 +106,9 @@ make shellweb
 
 Coming soon.
 
-### Running OMERO.web in development mode
+## Running OMERO.web in development mode
 
-#### Developing an OMERO.web application
+### Developing an OMERO.web application
 
 ```sh
 # Get OMERO.web shell and init the server
@@ -144,7 +144,7 @@ export PYTHONPATH=$OMERO_WEB_DEVELOPMENT_APPS:$PYTHONPATH
 
 Your application should appear at http://localhost:4080/webtest.
 
-#### Developing on OMERO.web itself
+### Developing on OMERO.web itself
 
 Coming soon !
 
