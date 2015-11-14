@@ -24,6 +24,7 @@ else
     export PYTHONPATH=$OMERO_WEB_DEVELOPMENT_APPS:$PYTHONPATH
 
     ./bin/omero config set omero.web.application_server development
+    ./bin/omero config set omero.web.application_server.host 0.0.0.0
     ./bin/omero config set omero.web.application_server.port 4080
     ./bin/omero config set omero.web.debug True
 

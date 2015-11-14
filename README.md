@@ -102,7 +102,49 @@ docker exec -ti omero-web bash
 make shellweb
 ```
 
+### Add custom applications to a server in production
+
+Coming soon.
+
 ### Running OMERO.web in development mode
+
+#### Developing an OMERO.web application
+
+```sh
+# Get OMERO.web shell and init the server
+make runwebdev
+su omero
+bash /start_omero_web.sh
+cd OMERO.server/
+./bin/omero web start
+```
+
+You should now be able to connect to the dev server here `http://127.0.0.1:4080` (currently not working and I don't know why...).
+
+Applications can be stored in `/data/omero_web_apps` (`$OMERO_DATA_DIR/omero_web_apps` on host).
+
+Open a new shell.
+
+```sh
+make shellweb
+su omero
+cd OMERO.server/
+
+./bin/omero config append omero.web.apps '"webtest"'
+./bin/omero config append omero.web.ui.right_plugins '["ROIs", "webtest/webclient_plugins/right_plugin.rois.js.html", "image_roi_tab"]'
+./bin/omero config append omero.web.ui.center_plugins '["Split View", "webtest/webclient_plugins/center_plugin.splitview.js.html", "split_view_panel"]'
+```
+
+In the first shell use `Ctrl+C` to stop the dev server.
+
+```sh
+export PYTHONPATH=$OMERO_WEB_DEVELOPMENT_APPS:$PYTHONPATH
+./bin/omero web start
+```
+
+Your application should appear at http://localhost:4080/webtest.
+
+#### Developing on OMERO.web itself
 
 Coming soon !
 
