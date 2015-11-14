@@ -4,6 +4,8 @@ MAINTAINER hadrien.mary@gmail.com
 
 ENV OMERO_WEB_CERTS_DIR /data/web_certs
 ENV OMERO_WEB_USE_SSL yes
+ENV OMERO_WEB_DEVELOPMENT no
+ENV OMERO_WEB_DEVELOPMENT_APPS /data/omero_web_apps
 
 RUN apt-get install -y nginx-full supervisor python-pip openssl
 
@@ -20,6 +22,7 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 EXPOSE 80
 EXPOSE 443
+EXPOSE 4080
 
 COPY supervisor.conf /supervisor.conf
 COPY start_nginx.sh /start_nginx.sh
