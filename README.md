@@ -91,6 +91,10 @@ cat $OMERO_DATA_DIR/config.sh
 ./bin/omero config set omero.client.scripts_to_ignore '[]'
 ```
 
+### Add custom scripts to a server in production
+
+All scripts inside `$OMERO_DATA_DIR/omero_scripts` will be available inside your OMERO.server. Technically `$OMERO_DATA_DIR/omero_scripts` is soft linked to `lib/scripts/custom_scripts`.
+
 ### Advanced usage
 
 You can launch only OMERO.server (and the database server of course) with this command :
