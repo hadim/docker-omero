@@ -119,7 +119,7 @@ cd OMERO.server/
 ./bin/omero web start
 ```
 
-You should now be able to connect to the dev server here `http://127.0.0.1:4080` (currently not working and I don't know why...).
+You should now be able to connect to the dev server here `http://127.0.0.1:4080`.
 
 Applications can be stored in `/data/omero_web_apps` (`$OMERO_DATA_DIR/omero_web_apps` on host).
 

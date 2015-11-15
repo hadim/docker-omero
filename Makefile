@@ -4,10 +4,10 @@ runserver:
 	docker-compose run --rm omero-server
 
 runweb:
-	docker-compose run --rm --name omero-web omero-web
+	OMERO_WEB_DEVELOPMENT=no docker-compose run --rm --name omero-web -p 80:80 -p 443:443 omero-web
 
 runwebdev:
-	docker-compose run --rm --name omero-web omero-web bash
+	OMERO_WEB_DEVELOPMENT=yes docker-compose run --rm --name omero-web -p 4080:4080 omero-web bash
 
 shellserver:
 	docker exec -ti omero-server bash

@@ -20,10 +20,6 @@ RUN mv $OMERO_HOME/nginx_omero_ssl.conf /etc/nginx/sites-available/nginx_omero_s
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-EXPOSE 80
-EXPOSE 443
-EXPOSE 4080
-
 COPY supervisor.conf /supervisor.conf
 COPY start_nginx.sh /start_nginx.sh
 COPY start_omero_web.sh /start_omero_web.sh
