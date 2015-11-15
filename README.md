@@ -104,7 +104,15 @@ make shellweb
 
 ### Add custom applications to a server in production
 
-Coming soon.
+Create a folder in `$OMERO_DATA_DIR/omero_web_apps`. Inside write a file called `deploy.sh` which will be called before launching the OMERO.web server. For example put this inside :
+
+```sh
+export PYTHONPATH=$OMERO_WEB_DEVELOPMENT_APPS:$PYTHONPATH
+
+./bin/omero config append omero.web.apps '"webtest"'
+./bin/omero config append omero.web.ui.right_plugins '["ROIs", "webtest/webclient_plugins/right_plugin.rois.js.html", "image_roi_tab"]'
+./bin/omero config append omero.web.ui.center_plugins '["Split View", "webtest/webclient_plugins/center_plugin.splitview.js.html", "split_view_panel"]'
+```
 
 ## Running OMERO.web in development mode
 

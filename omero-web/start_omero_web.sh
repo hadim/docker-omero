@@ -16,6 +16,11 @@ then
     fi
 
     ./bin/omero config set omero.web.server_list "[[\"$OMERO_SERVER_PORT_4064_TCP_ADDR\", 4064, \"omero\"]]"
+
+    # Load applications from /data/omero_web_apps/deploy.sh
+    export PYTHONPATH=$OMERO_WEB_DEVELOPMENT_APPS:$PYTHONPATH
+    bash /data/omero_web_apps/deploy.sh
+
     ./bin/omero web start
 
 else

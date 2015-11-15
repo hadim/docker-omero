@@ -10,6 +10,7 @@ ENV OMERO_WEB_DEVELOPMENT_APPS /data/omero_web_apps
 RUN apt-get install -y nginx-full supervisor python-pip openssl
 
 RUN pip install -r $OMERO_HOME/share/web/requirements-py27-nginx.txt
+RUN pip install django-debug-toolbar
 COPY nginx_omero.conf $OMERO_HOME/nginx_omero.conf
 COPY nginx_omero_ssl.conf $OMERO_HOME/nginx_omero_ssl.conf
 
