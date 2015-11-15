@@ -68,6 +68,29 @@ By default `~/data` will be used as OMERO data directoy. `80` is the default por
 
 - `OMERO_WEB_DEVELOPMENT` (default=no) : launch OMERO.web in development mode.
 
+### Add custom applications to a server in production
+
+Create a folder in `$OMERO_DATA_DIR/omero_web_apps`. Inside write a file called `deploy.sh` which will be called before launching the OMERO.web server. For example to install the figure application (http://figure.openmicroscopy.org), put this in `deploy.sh` :
+
+```sh
+export PYTHONPATH=$OMERO_WEB_DEVELOPMENT_APPS:$PYTHONPATH
+
+pip install reportlab markdown
+./bin/omero config append omero.web.apps '"figure"'
+./bin/omero config append omero.web.ui.top_links '["Figure", "figure_index", {"title": "Open Figure in new tab", "target": "figure"}]'
+```
+
+Don't forget to download the application to `$OMERO_DATA_DIR/omero_web_apps`.
+
+### Add custom configuration to a server in production
+
+Edit or create the file `$OMERO_DATA_DIR/config.sh`. If it exists, it will be called before the server startup.
+
+```sh
+cat $OMERO_DATA_DIR/config.sh
+./bin/omero config set omero.client.scripts_to_ignore '[]'
+```
+
 ### Advanced usage
 
 You can launch only OMERO.server (and the database server of course) with this command :
@@ -101,20 +124,6 @@ docker exec -ti omero-web bash
 # or use
 make shellweb
 ```
-
-### Add custom applications to a server in production
-
-Create a folder in `$OMERO_DATA_DIR/omero_web_apps`. Inside write a file called `deploy.sh` which will be called before launching the OMERO.web server. For example to install the figure application (http://figure.openmicroscopy.org), put this in `deploy.sh` :
-
-```sh
-export PYTHONPATH=$OMERO_WEB_DEVELOPMENT_APPS:$PYTHONPATH
-
-pip install reportlab markdown
-./bin/omero config append omero.web.apps '"figure"'
-./bin/omero config append omero.web.ui.top_links '["Figure", "figure_index", {"title": "Open Figure in new tab", "target": "figure"}]'
-```
-
-Don't forget to download the application to `$OMERO_DATA_DIR/omero_web_apps`.
 
 ## Running OMERO.web in development mode
 

@@ -21,6 +21,10 @@ fi
 
 cd $OMERO_HOME/
 
+if [ ! -d "/data/config.sh" ]; then
+    bash /data/config.sh || (echo "Something failed during the config.sh"; exit 1);
+fi
+
 rm -fr var/
 ln -s $OMERO_VAR_DIR var
 
