@@ -30,11 +30,9 @@ RUN chown omero $OMERO_DIR
 USER omero
 WORKDIR $OMERO_DIR
 
-RUN omego download --branch=$BRANCH server --labels $LABEL
-
-# Install Omero
-RUN unzip OMERO.server-*.zip
+RUN omego download --branch=$BRANCH --labels $LABEL --unzipdir . -v server
 RUN rm OMERO.server*zip
-RUN ln -s OMERO.server* $OMERO_HOME
+
+RUN ln -s OMERO.server-* $OMERO_HOME
 
 USER root
