@@ -5,8 +5,8 @@ do
     sleep 5s;
 done
 
-HOST="$OMERO_PG_PORT_5432_TCP_ADDR"
-PORT="$OMERO_PG_PORT_5432_TCP_PORT"
+HOST="omero-db"
+PORT="5432"
 
 # Wait for PG server to be up
 while ! pg_isready -h $HOST -p $PORT -d omero -U omero --quiet; do
@@ -21,7 +21,7 @@ fi
 
 cd $OMERO_HOME/
 
-if [ ! -d "/data/config.sh" ]; then
+if [ -f "/data/config.sh" ]; then
     bash /data/config.sh || (echo "Something failed during the config.sh"; exit 1);
 fi
 
@@ -31,7 +31,7 @@ ln -s $OMERO_SCRIPTS_DIR/ lib/scripts/custom_scripts
 rm -fr var/
 ln -s $OMERO_VAR_DIR var
 
-./bin/omero config set omero.db.host $OMERO_PG_PORT_5432_TCP_ADDR
-./bin/omero config set omero.db.port $OMERO_PG_PORT_5432_TCP_PORT
+./bin/omero config set omero.db.host $HOST
+./bin/omero config set omero.db.port $PORT
 ./bin/omero config set omero.data.dir $OMERO_DATA_DIR
 ./bin/omero admin start --foreground
