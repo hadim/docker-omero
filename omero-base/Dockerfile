@@ -5,7 +5,7 @@ MAINTAINER hadrien.mary@gmail.com
 RUN sed 's/main$/main universe/' -i /etc/apt/sources.list
 
 # Install dependencies
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     unzip wget supervisor \
     python2.7 python-pil python-matplotlib python-pip \
     python-numpy python-tables python-scipy \

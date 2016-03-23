@@ -15,7 +15,7 @@ git clone https://github.com/hadim/docker-omero.git
 mkdir docker-omero/
 ```
 
-You will need to install `docker-compose` (https://docs.docker.com/compose).
+You will need to install `docker > 1.10` and `docker-compose >= 1.6` (https://docs.docker.com/compose).
 
 You __absolutely__ need to declare environment variables within the same shell as the one used to launch all `docker-compose` commands since `docker-compose` does not support (yet!) default variables during substitution (hope it will in a near future...).
 
@@ -51,6 +51,8 @@ Wait a minute so the server can initialize. Then you can connect to OMERO with t
 Default admin credentials are `root` and `password`. Don't forget to change the password !
 
 By default `~/data` will be used as OMERO data directoy. `80` is the default port for OMERO.web and `4064` is the default port for OMERO.server.
+
+Note : It would be nice to use the new [named volume feature](https://docs.docker.com/compose/compose-file/#volume-configuration-reference) of docker and docker-compose. But for now we can't mount them on the host.
 
 ### Parameters
 
