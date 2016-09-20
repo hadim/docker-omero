@@ -15,7 +15,7 @@ git clone https://github.com/hadim/docker-omero.git
 mkdir docker-omero/
 ```
 
-You will need to install `docker > 1.10` and `docker-compose >= 1.6` (https://docs.docker.com/compose).
+You will need to install `docker > 1.10` and `docker-compose >= 1.6` (check with `docker version`).
 
 You __absolutely__ need to declare environment variables within the same shell as the one used to launch all `docker-compose` commands since `docker-compose` does not support (yet!) default variables during substitution (hope it will in a near future...).
 
@@ -24,7 +24,7 @@ export OMERO_WEB_PORT=80
 export OMERO_WEB_PORT_SSL=443
 export OMERO_SERVER_PORT=4064
 export OMERO_WEB_PORT_DEVELOPMENT=4080
-export OMERO_DATA_DIR=~/data
+export OMERO_DATA_DIR=~/data_omero
 export OMERO_WEB_USE_SSL=yes
 export OMERO_WEB_DEVELOPMENT=no
 
@@ -46,11 +46,15 @@ docker-compose up
 
 It will launch all services : PostgreSQL server, OMERO.server and OMERO.web.
 
-Wait a minute so the server can initialize. Then you can connect to OMERO with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5). Or you can access via OMERO.web client at http://localhost:80.
+Wait a minute so the server can initialize.
+
+To connect to the server with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5) use `localhost` as a server address and `4064` (by default) for the port. You also need to enable the encrypted mode by clicking on the locker image on the login window.
+
+To connect to the server with the OMERO.web client, go to http://localhost:80 or https://localhost:443 (by default).
 
 Default admin credentials are `root` and `password`. Don't forget to change the password !
 
-By default `~/data` will be used as OMERO data directoy. `80` is the default port for OMERO.web and `4064` is the default port for OMERO.server.
+By default `~/data` will be used as OMERO data directoy.
 
 Note : It would be nice to use the new [named volume feature](https://docs.docker.com/compose/compose-file/#volume-configuration-reference) of docker and docker-compose. But for now we can't mount them on the host.
 
@@ -192,7 +196,7 @@ The server will automatìcally use data inside `OMERO_DATA_DIR` on startup.
 
 ## About the images
 
-**omero-base**: based on `ubuntu:14.04`, it contains omego and install OMERO.server.
+**omero-base**: based on `ubuntu:16.04`, it contains omego and install OMERO.server.
 
 **omero-data**: volume container based on `busybox`. `/data` is defined as a volume.
 
