@@ -15,26 +15,12 @@ git clone https://github.com/hadim/docker-omero.git
 mkdir docker-omero/
 ```
 
-You will need to install `docker > 1.10` and `docker-compose >= 1.6` (check with `docker version`).
+You will need to install `docker > 1.12.0` and `docker-compose >= 1.9.0` (check with `docker version`).
 
-You __absolutely__ need to declare environment variables within the same shell as the one used to launch all `docker-compose` commands since `docker-compose` does not support (yet!) default variables during substitution (hope it will in a near future...).
-
-```sh
-export OMERO_WEB_PORT=80
-export OMERO_WEB_PORT_SSL=443
-export OMERO_SERVER_PORT=4064
-export OMERO_WEB_PORT_DEVELOPMENT=4080
-export OMERO_DATA_DIR=~/data_omero
-export OMERO_WEB_USE_SSL=yes
-export OMERO_WEB_DEVELOPMENT=no
-
-mkdir -p $OMERO_DATA_DIR
-```
-
-Then :
+Then, build and start OMERO :
 
 ```sh
-# Build base image (PR is welcome if you find a way to avoid this step)
+# Build base image
 docker build -t omero-base omero-base
 
 # Build compose images
@@ -54,11 +40,24 @@ To connect to the server with the OMERO.web client, go to http://localhost:80 or
 
 Default admin credentials are `root` and `password`. Don't forget to change the password !
 
-By default `~/data` will be used as OMERO data directoy.
+By default `~/data_omero` will be used as OMERO data directoy.
 
-Note : It would be nice to use the new [named volume feature](https://docs.docker.com/compose/compose-file/#volume-configuration-reference) of docker and docker-compose. But for now we can't mount them on the host.
 
 ### Parameters
+
+You can use environment variables to configure OMERO :
+
+```sh
+#export OMERO_WEB_PORT=80
+#export OMERO_WEB_PORT_SSL=443
+#export OMERO_SERVER_PORT=4064
+#export OMERO_WEB_PORT_DEVELOPMENT=4080
+#export OMERO_DATA_DIR=~/data_omero
+#export OMERO_WEB_USE_SSL=yes
+#export OMERO_WEB_DEVELOPMENT=no
+
+mkdir -p $OMERO_DATA_DIR
+```
 
 - `OMERO_WEB_PORT` (default=80) : port used to expose OMERO.web server in unsecure mode (`http`).
 
@@ -68,7 +67,7 @@ Note : It would be nice to use the new [named volume feature](https://docs.docke
 
 - `OMERO_WEB_PORT_DEVELOPMENT` (default=4080) : port used to expose OMERO.web server in development mode.
 
-- `OMERO_DATA_DIR` (default=~/data) : data directory path on host used to store all data relative to OMERO.server.
+- `OMERO_DATA_DIR` (default=~/data_omero) : data directory path on host used to store all data relative to OMERO.server.
 
 - `OMERO_WEB_USE_SSL` (default=yes) : wether to launch OMERO.web with SSL mode (`https`), certificates are generated automatically or can be customized in `$OMERO_DATA_DIR/web_certs`.
 
@@ -190,7 +189,7 @@ DropBox.log        Indexer-0.log      PixelData-0.log    Tables-0.log       mast
 
 ## Backup and restore
 
-You need to design a backup strategy according to your needs. All data needed to restart a server are located inside `OMERO_DATA_DIR` which is `~/data` by default.
+You need to design a backup strategy according to your needs. All data needed to restart a server are located inside `OMERO_DATA_DIR` which is `~/data_omero` by default.
 
 The server will automatìcally use data inside `OMERO_DATA_DIR` on startup.
 
