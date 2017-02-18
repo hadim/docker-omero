@@ -13,9 +13,9 @@
    height="839.79462"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="schema.svg"
-   inkscape:export-filename="/home/hadim/Documents/phd/dev/docker-omero/schema.png"
+   inkscape:export-filename="/home/hadim/Documents/Code/docker/docker-omero/schema.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -28,8 +28,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="474.87486"
-     inkscape:cy="232.50884"
+     inkscape:cx="273.44629"
+     inkscape:cy="455.36598"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -39,8 +39,8 @@
      fit-margin-bottom="10"
      showborder="true"
      inkscape:showpageshadow="false"
-     inkscape:window-width="1661"
-     inkscape:window-height="923"
+     inkscape:window-width="1901"
+     inkscape:window-height="1023"
      inkscape:window-x="0"
      inkscape:window-y="75"
      inkscape:window-maximized="0" />
@@ -108,7 +108,7 @@
          ry="12.666509" />
       <text
          xml:space="preserve"
-         style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
          x="336.88586"
          y="128.57768"
          id="text3761"
@@ -116,7 +116,7 @@
            sodipodi:role="line"
            id="tspan3763"
            x="336.88586"
-           y="128.57768">omero-postgres</tspan></text>
+           y="128.57768">omero-db</tspan></text>
     </g>
     <g
        id="g3797"
@@ -230,7 +230,7 @@
            y="298.69705"
            x="422.20276"
            id="tspan3863"
-           sodipodi:role="line">omero-pg</tspan></text>
+           sodipodi:role="line">omero-db</tspan></text>
     </g>
     <g
        id="g3835"
