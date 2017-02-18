@@ -21,6 +21,8 @@ Then, build and start OMERO :
 
 ```sh
 # Build base image
+# That would be nice to use Docker named volumes instead of data-only containers
+# but I don't know how to deal with permissions.
 docker build -t hadim/omero-base omero-base
 
 # Build compose images
