@@ -8,7 +8,7 @@ _But the main purpose of this project is to make you love running OMERO.server :
 
 ### Basics
 
-You will need to install `docker > 1.12.0` and `docker-compose >= 1.9.0` (check with `docker version`).
+You will need to install `docker > 1.13.0` and `docker-compose >= 1.11.0` (check with `docker version`).
 
 You can clone this repo or only download the `docker-compose.yml` file :
 
