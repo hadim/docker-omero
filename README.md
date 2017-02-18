@@ -10,18 +10,12 @@ _But the main purpose of this project is to make you love running OMERO.server :
 
 You will need to install `docker > 1.13.0` and `docker-compose >= 1.11.0` (check with `docker version`).
 
-You can clone this repo or only download the `docker-compose.yml` file :
+To start OMERO, simply do :
 
 ```sh
 mkdir docker-omero/
 wget https://raw.githubusercontent.com/hadim/docker-omero/master/docker-compose.yml
-```
-
-Then, start OMERO :
-
-```sh
-docker-compose up
-# You can use the -d option to run in the background.
+docker-compose up  # You can use the -d option to run in the background.
 ```
 
 It will launch all services : PostgreSQL server, OMERO.server and OMERO.web.
@@ -30,7 +24,7 @@ Wait a minute so the server can initialize.
 
 To connect to the server with the [OMERO Insight client](http://downloads.openmicroscopy.org/latest/omero5) use `localhost` as a server address and `4064` (by default) for the port. You also need to enable the encrypted mode by clicking on the locker image on the login window.
 
-To connect to the server with the OMERO.web client, go to http://localhost:80 or https://localhost:443 (by default).
+To connect to the server with the OMERO.web client, go to [https://localhost](https://localhost).
 
 Default admin credentials are `root` and `password`. Don't forget to change the password !
 
