@@ -1,4 +1,4 @@
-FROM hadim/omero-base:1.0.2
+FROM hadim/omero-base:1.0.3
 
 MAINTAINER hadrien.mary@gmail.com
 
