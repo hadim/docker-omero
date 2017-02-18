@@ -21,7 +21,7 @@ Then, build and start OMERO :
 
 ```sh
 # Build base image
-docker build -t omero-base omero-base
+docker build -t hadim/omero-base omero-base
 
 # Build compose images
 docker-compose build
