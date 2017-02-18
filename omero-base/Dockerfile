@@ -12,7 +12,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     openjdk-8-jre-headless ice-services  python-zeroc-ice \
     mencoder nano postgresql-client postgresql-client-common
 
-ENV BRANCH 5.2.5
+ENV BRANCH 5.2.7
 ENV ICE 3.5
 
 # Path variables
