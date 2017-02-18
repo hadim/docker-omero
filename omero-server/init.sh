@@ -1,3 +1,5 @@
+set -e
+
 HOST="omero-db"
 PORT="5432"
 

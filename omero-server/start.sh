@@ -1,3 +1,5 @@
+set -e
+
 # Wait for data directory to be up
 while [ ! -d $(dirname $OMERO_DATA_DIR) ]
 do

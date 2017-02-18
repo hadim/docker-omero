@@ -4,6 +4,13 @@ Set of `Dockerfile` to setup an OMERO.server. This project aims to be used in pr
 
 _But the main purpose of this project is to make you love running OMERO.server :-)_
 
+## Changelogs
+
+- Version 1.1.0 :
+    - Remove `omero-base`.
+    - Switch image to alpine-3.5.
+    - Update OMERO to 5.2.7.
+
 ## How to start your OMERO.server
 
 ### Basics
@@ -185,19 +192,13 @@ The server will automatìcally use data inside `OMERO_DATA_DIR` on startup.
 
 ## About the images
 
-**omero-base**: based on `ubuntu:16.04`, it contains omego and install OMERO.server.
-
 **omero-data**: volume container based on `busybox`. `/data` is defined as a volume.
 
 **omero-db**: based on `postgres:9.4`. It contains only few modifications from the original image.
 
-**omero-server**: based on `omero-base`, it runs OMERO.server.
+**omero-server**: based on `frolvlad/alpine-glibc:alpine-3.5`, it runs OMERO.server.
 
-**omero-web**: based on `omero-base`, it runs OMERO.web.
-
-See this schema for more details about how things are connected:
-
-![Schema of docker-omero](schema.png)
+**omero-web**: based on `frolvlad/alpine-glibc:alpine-3.5`, it runs OMERO.web.
 
 ## Authors
 
