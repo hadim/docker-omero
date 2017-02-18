@@ -199,7 +199,7 @@ The server will automatìcally use data inside `OMERO_DATA_DIR` on startup.
 
 **omero-data**: volume container based on `busybox`. `/data` is defined as a volume.
 
-**omero-postgres**: based on `postgres:9.4`. It contains only few modifications from the original image.
+**omero-db**: based on `postgres:9.4`. It contains only few modifications from the original image.
 
 **omero-server**: based on `omero-base`, it runs OMERO.server.
 

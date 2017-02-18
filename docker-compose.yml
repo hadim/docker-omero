@@ -9,9 +9,9 @@ services:
     volumes:
       - ${OMERO_DATA_DIR-~/data_omero}:/data:Z
 
-  omero-pg:
-    container_name: omero-pg
-    build: omero-postgres
+  omero-db:
+    container_name: omero-db
+    build: omero-db
     volumes_from:
       - omero-data
     environment:
@@ -23,7 +23,7 @@ services:
     volumes_from:
       - omero-data
     links:
-      - omero-pg:omero-db
+      - omero-db:omero-db
     ports:
       - "${OMERO_SERVER_PORT-4064}:4064"
 
