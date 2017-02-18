@@ -3,7 +3,7 @@ services:
 
   omero-data:
     container_name: omero-data
-    image: hadim/omero-data
+    build: omero-data
     command: "true"
     privileged: true
     volumes:
@@ -11,7 +11,7 @@ services:
 
   omero-db:
     container_name: omero-db
-    image: hadim/omero-db
+    build: omero-db
     volumes_from:
       - omero-data
     environment:
@@ -19,7 +19,7 @@ services:
 
   omero-server:
     container_name: omero-server
-    image: hadim/omero-server
+    build: omero-server
     volumes_from:
       - omero-data
     links:
@@ -29,7 +29,7 @@ services:
 
   omero-web:
     container_name: omero-web
-    image: hadim/omero-web
+    build: omero-web
     volumes_from:
       - omero-data
     links:

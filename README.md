@@ -8,28 +8,20 @@ _But the main purpose of this project is to make you love running OMERO.server :
 
 ### Basics
 
-Clone this repository :
-
-```sh
-git clone https://github.com/hadim/docker-omero.git
-mkdir docker-omero/
-```
-
 You will need to install `docker > 1.12.0` and `docker-compose >= 1.9.0` (check with `docker version`).
 
-Then, build and start OMERO :
+You can clone this repo or only download the `docker-compose.yml` file :
 
 ```sh
-# Build base image.
-# That would be nice to use Docker named volumes instead of data-only containers
-# but I don't know how to deal with permissions.
-docker build -t hadim/omero-base omero-base
+mkdir docker-omero/
+wget https://raw.githubusercontent.com/hadim/docker-omero/master/docker-compose.yml
+```
 
-# Build compose images
-docker-compose build
+Then, start OMERO :
 
-# Start services
+```sh
 docker-compose up
+# You can use the -d option to run in the background.
 ```
 
 It will launch all services : PostgreSQL server, OMERO.server and OMERO.web.
