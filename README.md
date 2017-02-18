@@ -13,7 +13,9 @@ You will need to install `docker > 1.13.0` and `docker-compose >= 1.11.0` (check
 To start OMERO, simply do :
 
 ```sh
-mkdir docker-omero/
+mkdir omero/ && cd omero/
+mkdir omero-data/
+mkdir docker-omero/ && cd docker-omero/
 wget https://raw.githubusercontent.com/hadim/docker-omero/master/docker-compose.yml
 docker-compose up  # You can use the -d option to run in the background.
 ```
@@ -28,7 +30,7 @@ To connect to the server with the OMERO.web client, go to [https://localhost](ht
 
 Default admin credentials are `root` and `password`. Don't forget to change the password !
 
-By default `~/data_omero` will be used as OMERO data directoy.
+By default `../omero-data` will be used as OMERO data directoy.
 
 
 ### Parameters
@@ -40,7 +42,7 @@ You can use environment variables to configure OMERO :
 #export OMERO_WEB_PORT_SSL=443
 #export OMERO_SERVER_PORT=4064
 #export OMERO_WEB_PORT_DEVELOPMENT=4080
-#export OMERO_DATA_DIR=~/data_omero
+#export OMERO_DATA_DIR=../omero-data
 #export OMERO_WEB_USE_SSL=yes
 #export OMERO_WEB_DEVELOPMENT=no
 
@@ -177,7 +179,7 @@ DropBox.log        Indexer-0.log      PixelData-0.log    Tables-0.log       mast
 
 ## Backup and restore
 
-You need to design a backup strategy according to your needs. All data needed to restart a server are located inside `OMERO_DATA_DIR` which is `~/data_omero` by default.
+You need to design a backup strategy according to your needs. All data needed to restart a server are located inside `OMERO_DATA_DIR` which is `../omero-data` by default.
 
 The server will automatìcally use data inside `OMERO_DATA_DIR` on startup.
 
