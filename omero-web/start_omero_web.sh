@@ -19,7 +19,7 @@ then
 
     # Load applications from /data/omero_web_apps/deploy.sh
     export PYTHONPATH=$OMERO_WEB_DEVELOPMENT_APPS:$PYTHONPATH
-    bash /data/omero_web_apps/deploy.sh
+    bash "/data/omero_web_apps/deploy.sh"
 
     ./bin/omero web start
 
